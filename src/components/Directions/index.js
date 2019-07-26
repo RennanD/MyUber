@@ -12,7 +12,7 @@ export default function Directions({destination, origin, onReady}) {
 			onReady = {onReady}
 			apikey = ''
 			strokeWidth = {3}
-			strokeColor = '#717'
+			strokeColor = '#7159c1'
 		/>
 	
 	)
