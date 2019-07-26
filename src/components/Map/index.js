@@ -1,10 +1,12 @@
 import React, {useState, useEffect} from 'react'
 import MapView from 'react-native-maps'
 import Search from '../Search';
+import Directions from '../Directions';
 
 export default function Map() {
 	
 	const [region, setRegion] = useState()
+	const [destination, setDestination] = useState()
 
 	useEffect(()=>{
 		navigator.geolocation.getCurrentPosition(
@@ -26,6 +28,16 @@ export default function Map() {
 		)
 	},[])
 
+	function handleLocationSelected(data, {geometry}){
+		const {location : {lat: latitude, lng: longitude}} = geometry
+
+		setDestination({
+			latitude,
+			longitude,
+			title : data.structured_formatting.main_text
+		})
+	}
+	
 	return(
 	
 		
@@ -37,8 +49,18 @@ export default function Map() {
 				region ={region}
 				showsUserLocation
 				loadingEnable
-			/>
-			<Search />		
+				ref = {el => mapView = el}
+			>
+				{destination && (
+					<Directions origin = {region} 
+						destination = {destination}
+						onReady = {(result)=>{
+							mapView.fitToCoordinates(result.coordinates)
+						}}
+					/>
+				)}
+			</MapView>
+			<Search onLocationSelected = {handleLocationSelected} />		
 		</>
 			
 		

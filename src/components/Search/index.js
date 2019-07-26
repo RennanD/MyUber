@@ -3,16 +3,21 @@ import {Platform} from 'react-native'
 import {GooglePlacesAutocomplete} from 'react-native-google-places-autocomplete'
 
 
-export default function Search() {
+export default function Search({onLocationSelected}) {
 	
+	const [isFocused, setFocused] = useState(false)
+
 	return(
 	
 		<GooglePlacesAutocomplete
 			placeholder = 'Destino da viagem...'
 			placeholderTextColor = '#999'
-			onPress = {({data, details})=>{
-				console.log(data, details)
+			onPress = {onLocationSelected}
+			textInputProps ={{
+				onFocus: () =>{setFocused(true)},
+				onBlur: () =>{setFocused(false)}
 			}}
+			listViewDisplayed = {isFocused}
 			query = {{
 				key: '',
 				language: 'pt'
