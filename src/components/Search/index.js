@@ -14,7 +14,7 @@ export default function Search() {
 				console.log(data, details)
 			}}
 			query = {{
-				key: 'AIzaSyDonBd0lJhMRQUtV59IwSI1jzk4n86AJPE',
+				key: '',
 				language: 'pt'
 			}}
 			fetchDetails
